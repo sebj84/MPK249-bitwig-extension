@@ -7,7 +7,7 @@ This extension transforms your Akai MPK249 into a dynamic control surface for Bi
 
 Rotary knobs (K1-K8), faders (F1-F8), and buttons (S1-S8) are organized into three banks,
 selectable via the hardware Control Bank (A/B/C) buttons.
-![](https://github.com/sebj84/MPK249-bitwig-extension/blob/38797ba09a01aa21b10de02e6929bee12d5c8f65/MPK%20pictures/Bank%20selection.jpg)
+![](https://github.com/sebj84/MPK249-bitwig-extension/blob/23fc11bb9501be7fe4e4913ff54bb3872d359671/MPK%20pictures/Bank%20selection.jpg)
 
 ### **1. Knobs (K1-K8) — [CONTROL BANK A ONLY] --> Dedicated to Volume & Pan control.**
 
@@ -16,11 +16,11 @@ selectable via the hardware Control Bank (A/B/C) buttons.
    - The 8 tracks shift in blocks of 8 as you navigate.
 
    - Note: The "Follow Cursor" option can be toggled in the controller settings within the Bitwig interface (see Capture bellow).
-![](https://github.com/sebj84/MPK249-bitwig-extension/blob/86345808d7394d6e6d1f7cbc5b9e3f2125df40e5/MPK%20pictures/cursor%20option.jpg)
+![](https://github.com/sebj84/MPK249-bitwig-extension/blob/23fc11bb9501be7fe4e4913ff54bb3872d359671/MPK%20pictures/cursor%20option.jpg)
 
 - SHIFT Mode (Enter button): Controls the Panning of the 8 tracks.
 
-![](https://github.com/sebj84/MPK249-bitwig-extension/blob/5c75186a599769259e596178754025f778f6776b/MPK%20pictures/Daw%20SHIFT%20alpha.PNG)
+https://github.com/sebj84/MPK249-bitwig-extension/blob/23fc11bb9501be7fe4e4913ff54bb3872d359671/MPK%20pictures/Daw%20SHIFT%20alpha.PNG
 - Visual Feedback: Track names and parameter values appear directly in Bitwig’s on-screen notifications.
 
 ### **2. Faders (F1-F8) — [CONTROL BANK A ONLY] --> Dedicated to Instrument Remote Controls.**
