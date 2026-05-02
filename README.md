@@ -109,8 +109,8 @@ If this script improves your workflow, feel free to buy me a coffee! Your suppor
 ## **📝 Important Notes**
 - MPK Internal Settings: Ensure your MPK249's internal settings have the S Buttons set to "Momentary" and not "Toggle" for perfect synchronization with Bitwig.
 
-- Sysex Profile: You can find my Akai MPK249 profile in the Akai sysex profile directory of this repository (https://github.com/sebj84/MPK249-bitwig-extension/tree/5c75186a599769259e596178754025f778f6776b/Akai%20sysex%20profile). You can upload it to your controller using the utility provided by Dobemad: https://github.com/dobemad/MPK249.
-- If you want to manually redo you Keyboard mapping you can follow the Excellsheet with CC here: https://github.com/sebj84/MPK249-bitwig-extension/blob/main/MPK249%20buttons.xlsx
+- Sysex Profile: You can find my Akai MPK249 profile in the Akai sysex profile directory of this repository ([HERE](https://github.com/sebj84/MPK249-bitwig-extension/tree/6b9ce59657c7d6b72bbc14c485305ef25a65c210/Akai%20sysex%20profile)). You can upload it to your controller using the utility provided by Dobemad: https://github.com/dobemad/MPK249.
+- If you want to manually redo you Keyboard mapping you can follow the Excellsheet with CC [HERE](https://github.com/sebj84/MPK249-bitwig-extension/blob/6b9ce59657c7d6b72bbc14c485305ef25a65c210/MPK249%20buttons.xlsx)
 
 - Video Manual: Coming Soon (TODO).
 
