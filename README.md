@@ -20,7 +20,7 @@ selectable via the hardware Control Bank (A/B/C) buttons.
 
 - SHIFT Mode (Enter button): Controls the Panning of the 8 tracks.
 
-https://github.com/sebj84/MPK249-bitwig-extension/blob/23fc11bb9501be7fe4e4913ff54bb3872d359671/MPK%20pictures/Daw%20SHIFT%20alpha.PNG
+![](https://github.com/sebj84/MPK249-bitwig-extension/blob/23fc11bb9501be7fe4e4913ff54bb3872d359671/MPK%20pictures/Daw%20SHIFT%20alpha.PNG)
 - Visual Feedback: Track names and parameter values appear directly in Bitwig’s on-screen notifications.
 
 ### **2. Faders (F1-F8) — [CONTROL BANK A ONLY] --> Dedicated to Instrument Remote Controls.**
