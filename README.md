@@ -1,5 +1,7 @@
 # **🎹 User Manual: Akai MPK249 for Bitwig Studio (BITWIG V6 API V25)**
 
+french vidéo manual : https://youtu.be/S8elt6nQCFU?is=Sz4RCxGyHE_nTq21
+
 This extension transforms your Akai MPK249 into a dynamic control surface for Bitwig Studio. It handles context changes (Clips, Instruments, Mixing) and significantly reduces the need for a mouse during your creative process.
 
 ---
@@ -112,6 +114,6 @@ If this script improves your workflow, feel free to buy me a coffee! Your suppor
 - Sysex Profile: You can find my Akai MPK249 profile in the Akai sysex profile directory of this repository ([HERE](https://github.com/sebj84/MPK249-bitwig-extension/tree/6b9ce59657c7d6b72bbc14c485305ef25a65c210/Akai%20sysex%20profile)). You can upload it to your controller using the utility provided by Dobemad: https://github.com/dobemad/MPK249.
 - If you want to manually redo you Keyboard mapping you can follow the Excellsheet with CC [HERE](https://github.com/sebj84/MPK249-bitwig-extension/blob/6b9ce59657c7d6b72bbc14c485305ef25a65c210/MPK249%20buttons.xlsx)
 
-- Video Manual: Coming Soon (TODO).
+- Video Manual: https://youtu.be/S8elt6nQCFU?is=Sz4RCxGyHE_nTq21
 
 **IMPORTANT**: This script is provided as-is. I cannot be held liable for any issues or damage that may affect your controller.
