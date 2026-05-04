@@ -115,7 +115,7 @@ public class MPK2Hardware {
         // --- BINDINGS FADERS (BANK A) ---
         for (int i = 0; i < 8; i++) {
             faders[i].setBinding(remoteControls.getParameter(i));
-            host.println(remoteControls.pageNames().toString());
+            //host.println(remoteControls.pageNames().toString());
         }
 
         // --- FOLLOW CURSOR LOGIC ---
