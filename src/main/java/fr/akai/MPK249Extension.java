@@ -99,7 +99,6 @@ public class MPK249Extension extends ControllerExtension {
     }
 
     private void initBitwigObjects() {
-//        application = host.createApplication();
 
         // On crée la banque de 4 pistes
         trackBank = host.createMainTrackBank(4, 2, 16);
@@ -116,14 +115,12 @@ public class MPK249Extension extends ControllerExtension {
         }
 
         sceneBank = host.createSceneBank(64);
-        // Indispensable pour que le SceneLauncher reçoive aussi les infos
-        sceneBank.setIndication(true);
+        // Indicateur non utile sur le scenebank
+        sceneBank.setIndication(false);
 
         cursorTrack = host.createCursorTrack(4, 16);
         cursorDevice = cursorTrack.createCursorDevice("Primary", "Primary Device", 0, CursorDeviceFollowMode.FOLLOW_SELECTION);
         remoteControls = cursorDevice.createCursorRemoteControlsPage(8);
-        //debug
-        //host.println(remoteControls.getName().toString());
 
         transport = host.createTransport();
     }
@@ -135,7 +132,8 @@ public class MPK249Extension extends ControllerExtension {
 
         NoteInput[] noteInputs = new NoteInput[16];
 
-        // --- TES NOTE INPUTS ORIGINAUX (LISIBLES) ---
+        // --- Note inputs for USB A1 to A16 of the AKAI ---
+        // add USB B of the akai in a future release
         noteInputs[0]  = midiIn.createNoteInput("MPK249 (CH1)",  "80????", "90????", "A0????", "B001??", "B00B??", "D0????", "E0????");
         noteInputs[1]  = midiIn.createNoteInput("MPK249 (CH2)",  "81????", "91????", "A1????", "B101??", "B10B??", "D1????", "E1????");
         noteInputs[2]  = midiIn.createNoteInput("MPK249 (CH3)",  "82????", "92????", "A2????", "B201??", "B20B??", "D2????", "E2????");
@@ -226,17 +224,15 @@ public class MPK249Extension extends ControllerExtension {
                 slot.isPlaying().markInterested();
 
                 // 2. ENVOIE L'INFO AU MODE ACTIF SANS CONDITION
-                // C'est le polymorphisme qui bosse pour toi ici.
-                // 1. Pour la présence de contenu
                 slot.hasContent().addValueObserver(has -> {
-                    common.getClipSlots()[tt][ss].hasContent = has; // CRUCIAL : On met à jour le cache[cite: 5]
+                    common.getClipSlots()[tt][ss].hasContent = has; // CRUCIAL : On met à jour le cache
                     activeMode.clipContentObs(tt, ss, has);
                 });
 
                 // 2. Pour la couleur du clip
                 slot.color().addValueObserver((r, g, b) -> {
                     PadColor pc = fr.akai.common.PadColorMapper.fromBitwigRGB((int)(r*255), (int)(g*255), (int)(b*255));
-                    common.getClipSlots()[tt][ss].color = pc; // CRUCIAL : On stocke la couleur convertie[cite: 5, 7]
+                    common.getClipSlots()[tt][ss].color = pc; // CRUCIAL : On stocke la couleur convertie
                     activeMode.clipColorObs(tt, ss, pc);
                 });
 
@@ -258,9 +254,8 @@ public class MPK249Extension extends ControllerExtension {
         // Nom de l'instrument
         cursorDevice.name().markInterested();
         cursorDevice.name().addValueObserver(name -> {
-            // Ici on garde le cast car seul PadInstrument possède cette méthode spécifique
             if (activeMode instanceof PadInstrument) {
-                ((PadInstrument)activeMode).cursorTrackInstrumentNameObs(name);
+                activeMode.cursorTrackInstrumentNameObs(name);
             }
         });
     }
@@ -272,15 +267,13 @@ public class MPK249Extension extends ControllerExtension {
         }
         activeMode = mode;
 
-        // 1. BASCULE DU MIDI (Le point manquant)
         // On active les notes pour l'instrument, on les coupe pour les clips/scènes
         setPadNotesEnabled(mode instanceof PadInstrument);
 
         // 2. INITIALISATION DES LEDS
         activeMode.init();
 
-        // 3. LIAISONS PHYSIQUES (Simplifié grâce à PadMode)
-        // Plus besoin de "instanceof" car initBindings est dans la classe mère
+        // 3. LIAISONS PHYSIQUES
         activeMode.initBindings(hardware);
 
         // 4. NOTIFICATION
@@ -322,6 +315,7 @@ public class MPK249Extension extends ControllerExtension {
     @Override public void exit() { host.showPopupNotification("MPK249 Disconnected"); }
     @Override public void flush() {}
 
+    //Getters
     public CursorTrack getCursorTrack() { return cursorTrack; }
     public CursorDevice getCursorDevice() { return cursorDevice; }
     public SettableBooleanValue getFollowCursorSetting() { return followCursorSetting; }

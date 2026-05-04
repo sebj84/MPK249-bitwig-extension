@@ -41,6 +41,7 @@ public class MPK2Hardware {
         initPads();
         setupLogic();
         setupNavigationAndFoot();
+
     }
 
     private void initPhysicalControls() {
@@ -92,17 +93,17 @@ public class MPK2Hardware {
         // ON MARQUE TOUT AU DÉBUT (Phase Init)
         for (int i = 0; i < 8; i++) {
             Track track = knobsTrackBank.getItemAt(i);
-            track.volume().markInterested(); // Indispensable ici !
-            track.pan().markInterested();    // Indispensable ici !
+            track.volume().markInterested();
+            track.pan().markInterested();
         }
 
         // --- SHIFT LOGIC (S8 = CC 35) ---
         // On met à jour l'état et on déclenche la re-liaison des potards
         btnShift.isPressed().addValueObserver(pressed -> {
             if (pressed) {
-                host.showPopupNotification("shift is pressed (pan control)");
+                host.showPopupNotification("shift is pressed (pan control) / Instrument & effects Navigation");
             } else {
-            host.showPopupNotification("shift released (vol control)");
+            host.showPopupNotification("shift released (vol control) / Clip navigation");
             }
             isShiftActive.set(pressed);
             updateKnobBindings(pressed);
@@ -116,10 +117,6 @@ public class MPK2Hardware {
             faders[i].setBinding(remoteControls.getParameter(i));
             host.println(remoteControls.pageNames().toString());
         }
-        //ancien binding au volume pour les faders
-//        for (int i = 0; i < 8; i++) {
-//            faders[i].setBinding(knobsTrackBank.getItemAt(i).volume());
-//        }
 
         // --- FOLLOW CURSOR LOGIC ---
         extension.getCursorTrack().position().addValueObserver(pos -> {
@@ -155,10 +152,19 @@ public class MPK2Hardware {
         // navigation logic
         btnUp.pressedAction().setBinding(cursorTrack.selectPreviousAction());
         btnDown.pressedAction().setBinding(cursorTrack.selectNextAction());
+
+        //Notif quand le device change
+        cursorDevice.name().addValueObserver(newName -> {
+            // On n'affiche que si l'utilisateur est en train de naviguer avec Shift
+            if (isShiftActive.get()) {
+                host.showPopupNotification("Device: " + newName);
+            }
+        });
+
         btnLeft.pressedAction().addBinding(host.createAction(() -> {
             if (isShiftActive.get()) {
                 cursorDevice.selectPrevious(); // Shift + Left = Device précédent
-                host.showPopupNotification("Device: Previous");
+ //               host.showPopupNotification("Device: " + cursorDevice.name().get());
             } else {
                 selectPrevClip.invoke(); // Left seul = Clip précédent
             }
@@ -167,7 +173,7 @@ public class MPK2Hardware {
         btnRight.pressedAction().addBinding(host.createAction(() -> {
             if (isShiftActive.get()) {
                 cursorDevice.selectNext(); // Shift + Right = Device suivant
-                host.showPopupNotification("Device: Next");
+//                host.showPopupNotification("Device: " + cursorDevice.name().get());
             } else {
                 selectNextClip.invoke(); // Right seul = Clip suivant
             }
@@ -200,8 +206,7 @@ public class MPK2Hardware {
             }, () -> "Track " + (finalI + 1) + " Mute/Solo Control"));
 
             // --- BANQUE C (S17-S24) : RECORD ARM ---
-            // L'indice 16 correspond à la Banque C. Pas de Shift ici pour plus de sécurité.
-            //buttons[16 + i].pressedAction().setBinding(armAction);
+            // L'indice 16 correspond à la Banque C.
 
             buttons[16 + i].pressedAction().addBinding(host.createAction(() -> {
                 int globalTrackNum = track.position().get() + 1;
@@ -214,7 +219,7 @@ public class MPK2Hardware {
 
         // Marquage d'intérêt pour le Footswitch
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < slotBank.getSizeOfBank(); i++) {
 
             slotBank.getItemAt(i).hasContent().markInterested();
 
@@ -224,7 +229,7 @@ public class MPK2Hardware {
         btnFootRec.pressedAction().addBinding(host.createAction(() -> {
             int nextFree = -1;
             int recordingIdx = -1;
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < slotBank.getSizeOfBank(); i++) {
                 if (slotBank.getItemAt(i).isRecording().get()) recordingIdx = i;
                 if (nextFree == -1 && !slotBank.getItemAt(i).hasContent().get()) nextFree = i;
             }
@@ -244,7 +249,7 @@ public class MPK2Hardware {
         HardwareButton btn = hardwareSurface.createHardwareButton(id);
         MidiIn midiIn = extension.getMidiIn();
 
-        // On utilise createAbsoluteCCValueMatcher pour accepter 0 ET 127 comme un "clic"[cite: 4]
+        // On utilise createAbsoluteCCValueMatcher pour accepter 0 ET 127 comme un "clic"
         btn.pressedAction().setActionMatcher(midiIn.createCCActionMatcher(0, cc));
 
         return btn;
