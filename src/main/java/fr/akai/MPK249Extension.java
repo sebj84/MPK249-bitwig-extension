@@ -134,7 +134,7 @@ public class MPK249Extension extends ControllerExtension {
 
         // --- Note inputs for USB A1 to A16 of the AKAI ---
         // add USB B of the akai in a future release
-        noteInputs[0]  = midiIn.createNoteInput("MPK249 (CH1)",  "80????", "90????", "A0????", "B001??", "B00B??", "D0????", "E0????");
+        noteInputs[0]  = midiIn.createNoteInput("MPK249 (CH1)",  "80????", "90????", "A0????", "B001??", "B00B??", "B022??", "B023??", "D0????", "E0????");//"B022??" = CC 34 (Next Preset) and "B023??" = CC 35 (Previous Preset) this is a bypass for letting CC34 and 35 pass to VST instruments and be able to change their internal presets (for pigment for example)
         noteInputs[1]  = midiIn.createNoteInput("MPK249 (CH2)",  "81????", "91????", "A1????", "B101??", "B10B??", "D1????", "E1????");
         noteInputs[2]  = midiIn.createNoteInput("MPK249 (CH3)",  "82????", "92????", "A2????", "B201??", "B20B??", "D2????", "E2????");
         noteInputs[3]  = midiIn.createNoteInput("MPK249 (CH4)",  "83????", "93????", "A3????", "B301??", "B30B??", "D3????", "E3????");
@@ -194,6 +194,7 @@ public class MPK249Extension extends ControllerExtension {
         hardware.getButton(5).pressedAction().addBinding(host.createAction(() -> {
             setActiveMode(instrumentMode, "Instrument Mode (pads are actives)");
         }, () -> "Select Instrument Mode 'pads are actives'"));
+
     }
 
     private void initObservers() {
